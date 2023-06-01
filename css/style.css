@@ -1,0 +1,179 @@
+/* 设置文字内容 :nth-child(1)的作用是选择第几个 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend:nth-child(1):before {
+    content: '输入QQ号会自动获取昵称和头像🐧';
+}
+
+.el-input.el-input--small.el-input-group.el-input-group--prepend:nth-child(2):before {
+    content: '收到回复将会发送到您的邮箱📧';
+}
+
+.el-input.el-input--small.el-input-group.el-input-group--prepend:nth-child(3):before {
+    content: '可以通过昵称访问您的网站🔗';
+}
+
+/* 当用户点击输入框时显示 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend:focus-within::before,
+.el-input.el-input--small.el-input-group.el-input-group--prepend:focus-within::after {
+    display: block;
+}
+
+/* 主内容区 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend::before {
+    /* 先隐藏起来 */
+    display: none;
+    /* 绝对定位 */
+    position: absolute;
+    /* 向上移动60像素 */
+    top: -60px;
+    /* 文字强制不换行，防止left:50%导致的文字换行 */
+    white-space: nowrap;
+    /* 圆角 */
+    border-radius: 10px;
+    /* 距离左边50% */
+    left: 50%;
+    /* 然后再向左边挪动自身的一半，即可实现居中 */
+    transform: translate(-50%);
+    /* 填充 */
+    padding: 14px 18px;
+    background: #444;
+    color: #fff;
+}
+
+/* 小角标 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend::after {
+    display: none;
+    content: '';
+    position: absolute;
+    /* 内容大小（宽高）为0且边框大小不为0的情况下，每一条边（4个边）都是一个三角形，组成一个正方形。
+    我们先将所有边框透明，再给其中的一条边添加颜色就可以实现小三角图标 */
+    border: 12px solid transparent;
+    border-top-color: #444;
+    left: 50%;
+    transform: translate(-50%, -48px);
+}
+
+.loading-img {
+    background: url(https://blog.szbsgbsg7.top/img/head.jpg/) no-repeat center center;
+    background-size: cover;
+}
+
+/* 魔改 */
+/* 一级菜单居中 */
+#nav .menus_items {
+    position: absolute !important;
+    width: fit-content !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+/* 子菜单横向展示 */
+#nav .menus_items .menus_item:hover .menus_item_child {
+    display: flex !important;
+}
+
+/* 这里的2是代表导航栏的第2个元素，即有子菜单的元素，可以按自己需求修改 */
+.menus_items .menus_item:nth-child(2) .menus_item_child {
+    left: -125px;
+}
+
+
+/* 右侧进度条的猫 */
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+.neko {
+    width: 64px;
+    height: 64px;
+    background-image: url("https://bu.dusays.com/2022/07/20/62d812db74be9.png");
+    position: absolute;
+    right: 32px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: translateX(50%);
+    cursor: pointer;
+    font-family: tzy;
+    font-weight: 600;
+    font-size: 16px;
+    color: #6f42c1;
+    display: none;
+}
+
+.neko::after {
+    display: none;
+    width: 100px;
+    height: 100px;
+    background-image: url("https://bu.dusays.com/2022/07/20/62d812d95e6f5.png");
+    background-size: contain;
+    z-index: 9999;
+    position: absolute;
+    right: 50%;
+    text-align: center;
+    line-height: 100px;
+    top: -115%;
+
+}
+
+.neko.showMsg::after {
+    content: attr(data-msg);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.neko:hover::after {
+    content: attr(data-msg);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.neko.fontColor::after {
+    color: #333;
+}
+
+/**
+ * @description: 滚动条样式  跟猫二选一
+ */
+@media screen and (max-width:992px) {
+    ::-webkit-scrollbar {
+        width: 8px !important;
+        height: 8px !important
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 2em;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: rgb(255 255 255 / .3);
+        background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+        border-radius: 2em
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: transparent
+    }
+}
+
+
+/* 欢迎信息 */
+#welcome-info {
+    background: #fff;
+    border-radius: 18px;
+    padding: 8px;
+  }
+  [data-theme="dark"] #welcome-info {
+    background: #212121;
+  }
+
+
+
+
+
+
+
+
+
+
+
