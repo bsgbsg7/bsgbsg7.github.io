@@ -54,7 +54,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2023-06-02 01:57:18'
+  postUpdate: '2023-06-03 12:31:50'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -201,16 +201,17 @@ LVGL 框架确实不难学，但是为什么现有移植好的驱动是基于 ID
 
 最终选择去掉屏幕部分，选择使用现有的屏幕模块，并且也有配置好的基于 Arduino 框架的 LVGL 代码
 V3.0版本
-</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/05/31/cx-lvgl-4/" title="ESP32 LVGL（4）">ESP32 LVGL（4）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-31T07:49:07.109Z" title="发表于 2023-05-31 15:49:07">2023-05-31</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-01T14:43:56.374Z" title="更新于 2023-06-01 22:43:56">2023-06-01</time></span></div><div class="content">功能
-恩智浦 Gui Guider + Platformio + ESP32S3 测试
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/05/31/cx-lvgl-4/" title="ESP32 LVGL（4）">ESP32 LVGL（4）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-31T07:49:07.109Z" title="发表于 2023-05-31 15:49:07">2023-05-31</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-03T04:31:16.190Z" title="更新于 2023-06-03 12:31:16">2023-06-03</time></span></div><div class="content">功能
 
-UI设计
+恩智浦 Gui Guider + Platformio + ESP32S3 移植测试
+以及 LVGL 优化
 
 
-移植
-在json文件里添加头文件路径，注意 path 和 includePath 。
+UI 移植1.设计 UI 并导出代码
 
-1234&quot;$&#123;workspaceFolder&#125;/**&quot;,&quot;E:/Files/Projects/CXCollege/hardware/Firmware/ESP32-S3-LVGL/ESP32-S3-LVGL-PIO-PROJECT-TFT3.5-ST7796U-CPT/lib/MyUI/custom&quot;,&quot;E:/Files/Projects/CXCollege/hardware/Firmware/ESP32-S3-LVGL/ESP32-S3-LVGL-PIO-PROJECT-TFT3.5-ST7796U-CPT/lib/MyUI/generated&quot;,	&quot;E:/Files/Projects/CXCollege/hardware/Firmware/ESP32-S3-LVGL/ESP32-S3-LVGL-PIO-PR ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/05/31/cx-lvgl-3/" title="ESP32 LVGL（3）">ESP32 LVGL（3）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-30T16:19:13.579Z" title="发表于 2023-05-31 00:19:13">2023-05-31</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-01T14:43:54.701Z" title="更新于 2023-06-01 22:43:54">2023-06-01</time></span></div><div class="content">功能
+
+2.移植1.在json文件里添加头文件路径，注意 path 和 includePath 都要添加
+1234&quot;$&#123;workspaceFolder&#125;/**&quot;,&quot;E:/Files/Projects/CXCollege/hardware/Firmware/ESP32-S3-LVGL/ESP32-S3-LVGL-PIO-PROJECT-TFT3.5-ST7796U-CPT/lib/MyUI/custom&quot;,&quot;E:/Files/Projects/CXCollege/hardware/Firmware/ESP32-S3-LVGL/ESP32-S3-LVGL-PIO-PROJECT-TFT3.5-ST7796U-CPT/lib/MyUI/generated&quot;,	&quot;E:/Files/Projects/CXCollege/hardware/Firmware/ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/05/31/cx-lvgl-3/" title="ESP32 LVGL（3）">ESP32 LVGL（3）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-30T16:19:13.579Z" title="发表于 2023-05-31 00:19:13">2023-05-31</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-01T14:43:54.701Z" title="更新于 2023-06-01 22:43:54">2023-06-01</time></span></div><div class="content">功能
 
 mq2 模块测试
 esp32s3 获取 mq2 模块数据，并且使用 LVGL显示。
