@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2023/06/30/cx-lvgl-8/</loc>
+    
+    <lastmod>2023-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2023/06/28/cx-lvgl-7/</loc>
+    
+    <lastmod>2023-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2023/06/05/ros/</loc>
     
     <lastmod>2023-06-09</lastmod>
@@ -254,70 +272,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/physics.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/pose.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/physics.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/live2d_api/model/Potion-Maker/Pio/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/pose.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -335,6 +290,15 @@
   </url>
   
   <url>
+    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/physics.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/live2d_api/model/Potion-Maker/Tia/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
@@ -344,7 +308,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/bilibili-live/22/textures_order.json</loc>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -353,7 +317,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_classic/index.json</loc>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -362,52 +326,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_classic/physics.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/bilibili-live/22/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_swimwear/physics.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_swimwear/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_normal/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_normal/physics.json</loc>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/pose.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -425,7 +344,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoirenohover/index.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_normal/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -434,7 +353,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoire/physics.json</loc>
+    <loc>http://example.com/live2d_api/model/bilibili-live/33/textures_order.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -443,7 +362,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepgear/index.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_normal/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -452,7 +371,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoirenohover/physics.json</loc>
+    <loc>http://example.com/live2d_api/model/bilibili-live/22/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -461,7 +380,34 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepgear_extra/index.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_classic/index.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/bilibili-live/22/textures_order.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_classic/physics.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_swimwear/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -479,6 +425,87 @@
   </url>
   
   <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/blanc_swimwear/physics.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/index.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/physics.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/pose.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoirenohover/index.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoirenohover/physics.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoire/index.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepgear/index.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepgear_extra/index.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepgear/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
@@ -488,25 +515,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepgear_extra/physics.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepmaid/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepmaid/physics.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoire/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -533,7 +542,25 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/histoire/index.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepmaid/index.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepmaid/physics.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepgear_extra/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -569,15 +596,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/neptune_classic/index.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepswim/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
@@ -587,7 +605,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/neptune_santa/index.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/neptune_classic/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -596,7 +614,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/bilibili-live/33/textures_order.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/neptune_santa/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -677,7 +695,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/vert_normal/index.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/noireswim/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -686,7 +704,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/noireswim/physics.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/vert_normal/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -704,7 +722,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/vert_normal/physics.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/vert_swimwear/index.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -713,7 +731,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/vert_swimwear/index.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/vert_normal/physics.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -731,7 +749,34 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/expressions/f02.exp.json</loc>
+    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f01.exp.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f02.exp.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f03.exp.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f04.exp.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -741,6 +786,15 @@
   
   <url>
     <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/expressions/f01.exp.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-48/expressions/f02.exp.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -776,15 +830,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/expressions/f03.exp.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/expressions/f02.exp.json</loc>
     
     <lastmod>2022-07-03</lastmod>
@@ -794,43 +839,16 @@
   </url>
   
   <url>
+    <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/expressions/f03.exp.json</loc>
+    
+    <lastmod>2022-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/live2d_api/model/ShizukuTalk/shizuku-pajama/expressions/f04.exp.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f01.exp.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f04.exp.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f02.exp.json</loc>
-    
-    <lastmod>2022-07-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/live2d_api/model/KantaiCollection/murakumo/expressions/f03.exp.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -866,7 +884,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepnep/general/exp/happy.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepnep/general/exp/unhappy.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -875,7 +893,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepnep/general/exp/unhappy.json</loc>
+    <loc>http://example.com/live2d_api/model/HyperdimensionNeptunia/nepnep/general/exp/happy.json</loc>
     
     <lastmod>2022-07-03</lastmod>
     
@@ -904,7 +922,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2023-06-09</lastmod>
+    <lastmod>2023-06-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
