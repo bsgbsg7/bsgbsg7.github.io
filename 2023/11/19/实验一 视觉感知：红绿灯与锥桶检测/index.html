@@ -1,0 +1,704 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ROS智能车（一）：视觉感知 | Bsgbsg7's World</title><meta name="author" content="Bsgbsg7"><meta name="copyright" content="Bsgbsg7"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="实验一	视觉感知：红绿灯与锥桶检测实验目的: 掌握相机标定的基本方法，了解相机畸变的影响； 掌握传统图像处理的基本方法，使用 OpenCV 进行图像处理；  实验内容： 使用相机标定源码标定相机； 运用OpenCV处理锥桶和红绿灯信息；  实验仪器：ROS智能车、雷达、红色蓝色锥桶、路由器、工控机。 实验原理： ROS环境下驱动USB相机  ​		ROS智能车上配置的是USB串口摄像头。原厂代码不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS智能车（一）：视觉感知">
+<meta property="og:url" content="http://example.com/2023/11/19/%E5%AE%9E%E9%AA%8C%E4%B8%80%20%E8%A7%86%E8%A7%89%E6%84%9F%E7%9F%A5%EF%BC%9A%E7%BA%A2%E7%BB%BF%E7%81%AF%E4%B8%8E%E9%94%A5%E6%A1%B6%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="Bsgbsg7&#39;s World">
+<meta property="og:description" content="实验一	视觉感知：红绿灯与锥桶检测实验目的: 掌握相机标定的基本方法，了解相机畸变的影响； 掌握传统图像处理的基本方法，使用 OpenCV 进行图像处理；  实验内容： 使用相机标定源码标定相机； 运用OpenCV处理锥桶和红绿灯信息；  实验仪器：ROS智能车、雷达、红色蓝色锥桶、路由器、工控机。 实验原理： ROS环境下驱动USB相机  ​		ROS智能车上配置的是USB串口摄像头。原厂代码不">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/head.jpg">
+<meta property="article:published_time" content="2023-11-19T09:57:11.483Z">
+<meta property="article:modified_time" content="2023-11-19T09:41:00.890Z">
+<meta property="article:author" content="Bsgbsg7">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/head.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/11/19/%E5%AE%9E%E9%AA%8C%E4%B8%80%20%E8%A7%86%E8%A7%89%E6%84%9F%E7%9F%A5%EF%BC%9A%E7%BA%A2%E7%BB%BF%E7%81%AF%E4%B8%8E%E9%94%A5%E6%A1%B6%E6%A3%80%E6%B5%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/My%20Blog" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":600,"position":"top","messagePrev":"此文章已经有","messageNext":"没有更新了, 内容可能已经比较旧啦。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Bsgbsg7","link":"链接: ","source":"来源: Bsgbsg7's World","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ROS智能车（一）：视觉感知',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-19 17:41:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/style.css?1"><link rel="stylesheet" href="/css/emoji.css?1"><div id="myscoll"></div><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Bsgbsg7's World" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 小窝</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-user-group"></i><span> 友人</span></a></li><li><a class="site-page child" href="/message/"><i class="fa-fw fas fa-envelope"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heart"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bibi/"><i class="fa-fw fas fa-face-laugh-wink"></i><span> 叨叨</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-paper-plane"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Bsgbsg7's World"><span class="site-name">Bsgbsg7's World</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 小窝</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-book-open"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-user-group"></i><span> 友人</span></a></li><li><a class="site-page child" href="/message/"><i class="fa-fw fas fa-envelope"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heart"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bibi/"><i class="fa-fw fas fa-face-laugh-wink"></i><span> 叨叨</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-paper-plane"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ROS智能车（一）：视觉感知</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-19T09:57:11.483Z" title="发表于 2023-11-19 17:57:11">2023-11-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-19T09:41:00.890Z" title="更新于 2023-11-19 17:41:00">2023-11-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ROS智能车（一）：视觉感知"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="实验一视觉感知：红绿灯与锥桶检测"><a href="#实验一视觉感知：红绿灯与锥桶检测" class="headerlink" title="实验一	视觉感知：红绿灯与锥桶检测"></a>实验一	视觉感知：红绿灯与锥桶检测</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的:"></a>实验目的:</h2><ol>
+<li>掌握相机标定的基本方法，了解相机畸变的影响；</li>
+<li>掌握传统图像处理的基本方法，使用 OpenCV 进行图像处理；</li>
+</ol>
+<h2 id="实验内容："><a href="#实验内容：" class="headerlink" title="实验内容："></a>实验内容：</h2><ol>
+<li>使用相机标定源码标定相机；</li>
+<li>运用OpenCV处理锥桶和红绿灯信息；</li>
+</ol>
+<h2 id="实验仪器："><a href="#实验仪器：" class="headerlink" title="实验仪器："></a>实验仪器：</h2><p>ROS智能车、雷达、红色蓝色锥桶、路由器、工控机。</p>
+<h2 id="实验原理："><a href="#实验原理：" class="headerlink" title="实验原理："></a>实验原理：</h2><ol>
+<li><h3 id="ROS环境下驱动USB相机"><a href="#ROS环境下驱动USB相机" class="headerlink" title="ROS环境下驱动USB相机"></a>ROS环境下驱动USB相机</h3></li>
+</ol>
+<p>​		ROS智能车上配置的是USB串口摄像头。原厂代码不包含驱动，我们需要在ROS.org上获取usb相机驱动<a target="_blank" rel="noopener" href="https://github.com/ros-drivers/usb_cam">usb_cam</a>功能包，功能包在<camera_name>&#x2F;image_raw话题下发布sensor_msgs&#x2F;Image结构的图像信息，数据结构如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Header header    </span><br><span class="line"></span><br><span class="line">uint32 height         <span class="comment"># image height, that is, number of rows</span></span><br><span class="line">uint32 width          <span class="comment"># image width, that is, number of columns</span></span><br><span class="line">string encoding       <span class="comment"># Encoding of pixels -- channel meaning, ordering, size</span></span><br><span class="line">uint8 is_bigendian    <span class="comment"># is this data bigendian?</span></span><br><span class="line">uint32 step           <span class="comment"># Full row length in bytes</span></span><br><span class="line">uint8[] data          <span class="comment"># actual matrix data, size is (step * rows)</span></span><br></pre></td></tr></table></figure>
+
+<p>​		通过相机获取图像信息，首先需要对相机进行标定以消除畸变，否则无法正常驱动相机。相机标定的目的是为了确定相机内部参数和外部参数，以便修正图像并将图像坐标映射到世界坐标，或者从世界坐标映射到图像坐标。这个过程是计算机视觉和三维感知任务的关键步骤之一。相机标定可以通过matlab、OpenCV、ROS三种方式进行，本实验我们采用<a target="_blank" rel="noopener" href="https://wiki.ros.org/camera_calibration">camera_calibration</a>功能包，通过国际棋盘计算参数，实现相机标定。</p>
+<ol start="2">
+<li><h3 id="图像处理算法分析"><a href="#图像处理算法分析" class="headerlink" title="图像处理算法分析"></a>图像处理算法分析</h3></li>
+</ol>
+<p>近年来，随着计算机技术不断发展和深度学习的兴起，图像处理领域也得到了广泛的关注和研究。当前主流的图像处理算法可以分为传统算法和深度学习算法两类。</p>
+<p>传统算法主要是基于人工设计的特征提取和分类模型，包括SIFT、HOG、SURF等。这些算法在一些场景下仍然具有一定的优势，例如对于目标检测任务，传统算法通常能够更好地处理尺度变化和视角变化等问题，而且相对于深度学习算法来说，传统算法的计算速度也更快。但是，传统算法需要大量的手工调参和特征设计，而这些过程通常需要专业知识和经验，成本较高且不易复用。</p>
+<p>深度学习算法则是基于神经网络的方法，通过大规模数据训练神经网络，实现自动特征提取和分类。AlexNet、VGG、GoogLeNet、ResNet等深度学习模型在图像处理领域具有重要的作用。与传统算法相比，深度学习算法能够更好地处理复杂的非线性特征，且无需手动设计特征，更加便于工程实现。同时，深度学习算法的泛化能力比传统算法更强，在大规模数据下表现更好。</p>
+<p>然而，深度学习算法也存在一些问题，例如需要大量的数据和计算资源进行训练，且网络结构和参数调整较为复杂，容易出现过拟合等问题。此外，在一些场景下，深度学习算法的计算开销较大，对计算资源的要求较高。</p>
+<p>考虑到四代i5工控机计算资源有限，且室外专项赛道元素较为单一 ，不需要对各种场景进行泛，选择传统算法可能是更合适的选择。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统图像处理</th>
+<th>深度学习网络</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关键技术</td>
+<td>信号处理方法，如直方图，灰度化，滤波，差值，采样等</td>
+<td>CNN，RNN，FC，Yolov5s，LSTM，etc.</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>特点场景效果较好</td>
+<td>数据驱动，泛化能力好</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>1.泛化能力弱<br />2.需要人为处理图像，寻找特征</td>
+<td>1.可解释性差<br />2.需要大量数据集训练</td>
+</tr>
+<tr>
+<td>算力要求</td>
+<td>低，CPU单线程处理</td>
+<td>高，GPU 并行处理</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li><h3 id="图像处理技术"><a href="#图像处理技术" class="headerlink" title="图像处理技术"></a>图像处理技术</h3></li>
+<li><h4 id="图像去噪"><a href="#图像去噪" class="headerlink" title="图像去噪"></a><strong>图像去噪</strong></h4></li>
+</ol>
+<p>通过降低图像中的噪声来提高图像质量。常见的方法包括中值滤波、高斯滤波和锐化滤波。</p>
+<p>中值滤波是一种常见的非线性图像滤波方法，它使用像素点邻域内的中值来取代中心像素的灰度值，从而达到去除噪声的效果。中值滤波的公式比较简单，就是将像素点邻域内的像素值进行排序，然后取中间值作为当前像素的值。<br>$$<br>I_{\text{filtered}}(x, y) &#x3D; \text{median}\left(I(x+i, y+j) ,|, i &#x3D; -k,\ldots,k, j &#x3D; -k,\ldots,k\right)<br>$$<br>中值滤波器对于去除椒盐噪声等概率型噪声非常有效，因为它不受噪声干扰，能够更好地保留图像的边缘信息。在<code>OpenCV</code>中，可以使用<code>cv2.medianBlur()</code>函数来应用中值滤波。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blurred_image = cv2.medianBlur(image, ksize)</span><br></pre></td></tr></table></figure>
+
+<p>其中关键参数如下：</p>
+<ul>
+<li><code>image</code>是输入的图像</li>
+<li><code>ksize</code>是中值滤波核的大小，通常设置为一个大于1的奇数，表示邻域的大小</li>
+</ul>
+<p>$$<br>H(i, j) &#x3D; \frac{1}{2\pi\sigma^2} e^{-\frac{i^2+j^2}{2\sigma^2}}<br>$$<br>其中，<code>i</code>和<code>j</code>是滤波器的坐标，$\sigma$是高斯函数的标准差。在<code>OpenCV</code>中，可以使用<code>cv2.GaussianBlur()</code>函数来应用高斯滤波。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blurred_image = cv2.GaussianBlur(image, (ksize_x, ksize_y), sigmaX, sigmaY)</span><br></pre></td></tr></table></figure>
+
+<p>其中关键参数如下：</p>
+<ul>
+<li><code>image</code>是输入的图像</li>
+<li><code>(ksize_x, ksize_y)</code>是高斯核的大小，通常设置为奇数，表示在<code>x</code>方向和<code>y</code>方向上的标准差</li>
+<li><code>sigmaX</code>和<code>sigmaY</code>是高斯核函数在<code>x</code>方向和<code>y</code>方向上的标准差</li>
+</ul>
+<p>锐化滤波器可以通过不同的算子来实现，其中一个常见的算子是拉普拉斯算子。其公式如下：</p>
+<p>$$<br>\nabla^2 f &#x3D; \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}<br>$$</p>
+<p>在OpenCV中，可以使用 cv2.Laplacian 函数来应用拉普拉斯算子。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">laplacian_image = cv2.Laplacian(image, ddepth, ksize)</span><br></pre></td></tr></table></figure>
+
+<p>其中关键参数如下：</p>
+<ul>
+<li><code>image</code>是输入的图像</li>
+<li><code>ddepth</code>是输出图像的深度，通常设置为<code>cv2.CV_8U</code>或<code>-1</code>表示与输入图像相同的深度</li>
+<li><code>ksize</code>是拉普拉斯算子的核大小</li>
+</ul>
+<ol start="2">
+<li><h4 id="形态学滤波"><a href="#形态学滤波" class="headerlink" title="形态学滤波"></a><strong>形态学滤波</strong></h4></li>
+</ol>
+<p>形态学滤波是基于形态的滤波方法，基本的形态操作包含膨胀、腐蚀，以及这两者的组合运算，如形态学开运算，闭运算，黑帽运算等等。</p>
+<p><strong>膨胀</strong>： 膨胀是一种形态学操作，用于求取局部最大值。在膨胀过程中，我们使用一个卷积核（也称为结构元素），将其与图像进行卷积操作。对于每个卷积核覆盖区域内的像素，将选择其中的最大值作为该区域内所有像素点的输出。膨胀操作可以使边缘变得更加明显，并将对象之间的间隙填充。<br>$$<br>\text{dilateAB}\ A(x,y) &#x3D; \max_{(i,j) \in B}(B(i,j) + A(x+i, y+j))<br>$$<br>其中，$A$为原始图像，$B$为卷积核（也称为结构元素），$(x,y)$为当前像素坐标，$(i,j)$为卷积核中心点到当前像素点的距离。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.dilate(src, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]])</span><br></pre></td></tr></table></figure>
+
+<p>其中关键参数如下：</p>
+<ul>
+<li><p><code>src</code>：原始图像</p>
+<p><code>kernel</code>：卷积核&#x2F;结构元素</p>
+<p><code>dst</code>：输出图像（可选）</p>
+<p><code>anchor</code>：锚点，指示卷积核中心位置（默认为(-1, -1)）</p>
+<p><code>iterations</code>：迭代次数，表示膨胀操作的次数（默认为1）</p>
+<p><code>borderType</code>：边界扩充类型（默认为<code>cv2.BORDER_CONSTANT</code>），可选的值还有<code>cv2.BORDER_REPLICATE</code>等</p>
+<p><code>borderValue</code>：边界填充值（默认为0）</p>
+</li>
+</ul>
+<p><strong>腐蚀</strong>： 腐蚀是一种形态学操作，用于求取局部最小值。在腐蚀过程中，我们同样使用一个卷积核与图像进行卷积操作。对于每个卷积核覆盖区域内的像素，将选择其中的最小值作为该区域内所有像素点的输出。腐蚀操作可以使边缘变得更加细化，并消除图像中的小的孔洞或细小的连通区域。<br>$$<br>\text{erodeAB}\ A(x,y) &#x3D; \min_{(i,j) \in B}(B(i,j) + A(x+i, y+j))<br>$$</p>
+<p>其中，$A$为原始图像，$B$为卷积核（也称为结构元素），$(x,y)$为当前像素坐标，$(i,j)$为卷积核中心点到当前像素点的距离。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.erode(src, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]])</span><br></pre></td></tr></table></figure>
+
+<p>其中关键参数如下：</p>
+<ul>
+<li><code>src</code>：原始图像</li>
+<li><code>kernel</code>：卷积核&#x2F;结构元素</li>
+<li><code>dst</code>：输出图像（可选）</li>
+<li><code>anchor</code>：锚点，指示卷积核中心位置（默认为(-1, -1)）</li>
+<li><code>iterations</code>：迭代次数，表示腐蚀操作的次数（默认为1）</li>
+<li><code>borderType</code>：边界扩充类型（默认为cv2.BORDER_CONSTANT），可选的值还有<code>cv2.BORDER_REPLICATE</code>等</li>
+<li><code>borderValue</code>：边界填充值（默认为0）</li>
+</ul>
+<ol start="3">
+<li><h4 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a><strong>边缘检测</strong></h4></li>
+</ol>
+<p>边缘检测是数字图像处理中常用的技术，用于识别图像中物体边缘的位置。常见的边缘检测算法包括Sobel算子、Prewitt算子、Roberts算子和Canny边缘检测算法等。其中，Sobel算子和Canny算法是应用最为广泛的两种方法。</p>
+<p><strong>Sobel算子</strong>：是一种基于梯度的边缘检测算子，它通过计算图像的水平和竖直方向上的梯度来识别边缘。具体来说，Sobel算子使用卷积操作来对图像进行梯度计算，从而找到像素值变化最为剧烈的位置，即边缘。Sobel算子的计算简单高效，适用于许多实际场景。在<code>OpenCV</code>中，可以使用<code>cv2.Sobel()</code>函数来应用Sobel边缘检测。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.Sobel(src, ddepth, dx, dy, ksize)</span><br></pre></td></tr></table></figure>
+
+<p>其中关键参数如下：</p>
+<ul>
+<li><code>src</code>：输入图像。</li>
+<li><code>ddepth</code>：输出图像的深度，通常设置为-1，表示输出图像与输入图像有相同的深度。</li>
+<li><code>dx</code> 和 <code>dy</code>：分别表示在x和y方向上的导数的阶数。dx和dy都可以是0、1或者-1。</li>
+<li><code>ksize</code>：Sobel算子的孔径大小，可以取1、3、5或者7。</li>
+</ul>
+<p><strong>Canny算法</strong>：它是一种多阶段的边缘检测方法。Canny算法首先对图像进行高斯滤波以去除噪声，然后计算图像梯度的幅值和方向，接着利用非极大值抑制来细化边缘，最后通过双阈值处理来提取强边缘并抑制弱边缘，从而得到最终的边缘图像。Canny算法在实际应用中表现出较好的性能，尤其在复杂背景和噪声较多的图像中效果明显。本次试验中，我们使用 canny 计算锥桶边缘获得连接线，继而确定锥桶位置。在<code>OpenCV</code>中，可以使用<code>cv2.Canny()</code>函数来应用Canny边缘检测。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.Canny(image, threshold1, threshold2)</span><br></pre></td></tr></table></figure>
+
+<p>其中关键参数如下：</p>
+<ul>
+<li><code>image</code>：输入图像。</li>
+<li><code>threshold1</code> 和 <code>threshold2</code>：两个阈值，用于控制边缘检测的灵敏度。通常情况下，<code>threshold2</code> 会被用于边缘连接，而 <code>threshold1</code> 被用来控制强边缘的初始检测。推荐的 <code>threshold2/threshold1</code> 比值在2:1到3:1之间。</li>
+</ul>
+<h2 id="实验步骤："><a href="#实验步骤：" class="headerlink" title="实验步骤："></a>实验步骤：</h2><ol>
+<li><h3 id="驱动USB相机"><a href="#驱动USB相机" class="headerlink" title="驱动USB相机"></a>驱动USB相机</h3></li>
+</ol>
+<p>在ubuntu中查看摄像头需要安装cheese：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install cheese</span><br></pre></td></tr></table></figure>
+
+<p>在终端输入cheese查看摄像头</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cheese</span><br></pre></td></tr></table></figure>
+
+<p>如果能如下图显示摄像头画面则表示摄像头正常</p>
+<img src="3_3-16995862042345.jpg" alt="3_3" style="zoom:50%;" />
+
+<center>cheese摄像头画面</center>
+
+<p>在ROS下获取usb_cam功能包，usb_cam功能包支持源码下载和本地下载：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ros-noetic-usb-cam  <span class="comment"># 本地下载</span></span><br><span class="line">git clone https://github.com/ros-drivers/usb_cam.git  <span class="comment"># 源码下载</span></span><br></pre></td></tr></table></figure>
+
+<p>智能车首次使用单目相机时，需要对其进行标定，首先获取camera_calibration功能包：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosdep install camera_calibration</span><br></pre></td></tr></table></figure>
+
+<p>将一个<a target="_blank" rel="noopener" href="https://gitee.com/liangbo1996/chessboard_27mm">9X6的国际棋盘格27mmX27mm</a>打印到A4纸上，在终端启动如下指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun camera_calibration cameracalibrator.py --size 9x6 --square 0.027 image:=/camera/image_raw camera:=/camera</span><br></pre></td></tr></table></figure>
+
+<p>将棋盘在相机前方上、下、左、右平移、翻转棋盘格，直到条形变为绿色。当calibration按钮亮起时，代表已经有足够的数据进行摄像头的标定，此时请按下calibration并等待一分钟左右，标定界面会变成灰色，单击“save”和“commit”将标定数据保存至本地，下次启动相机时会自动加载标定数据。</p>
+<img src="mono_0.png" alt="mono_0" style="zoom:50%;" />
+
+<center>标定过程，图源 camera_calibration 官方 Tutorials，单目相机情况  </center>
+
+<p>标定结束后，可以通过launch文件启动usb_cam：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch usb_cam usb_cam.launch</span><br></pre></td></tr></table></figure>
+
+<p>launch文件中加载的配置文件及其含义注释如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">start_service_name: <span class="string">&quot;start_capture&quot;</span>  <span class="comment"># 定义重新启动暂停的流媒体的std_srvs::Empty服务的名称后缀</span></span><br><span class="line">stop_service_name: <span class="string">&quot;stop_capture&quot;</span>  <span class="comment"># 定义暂停相机轮询计时器的std_srvs::Empty服务的名称后缀</span></span><br><span class="line">video_device: /dev/video0           <span class="comment"># usb_cam设备串口名称</span></span><br><span class="line">io_method: mmap                     <span class="comment"># I/O方法</span></span><br><span class="line"><span class="comment"># - read - 适用于支持虚拟文件系统或块I/O的设备</span></span><br><span class="line"><span class="comment"># - mmap - 适用于具有直接libusb内存映射的设备</span></span><br><span class="line"><span class="comment"># - userptr - 适用于支持用户空间指针交换的用户空间设备</span></span><br><span class="line">pixel_format: yuyv                  <span class="comment"># 像素格式，与硬件相关，此处应为yuyv</span></span><br><span class="line">color_format: yuv422p               <span class="comment"># 硬件编码的输入帧的芯片上颜色表示模式</span></span><br><span class="line"><span class="comment"># - yuv422p - YUV422 - 默认值，与大多数MJPEG硬件编码器兼容</span></span><br><span class="line"><span class="comment"># - yuv420p - YUV420 - H.264和H.265硬件编码器必需的</span></span><br><span class="line">create_suspended: false             <span class="comment"># 指示节点在启动后是否立即开始流媒体，或者等到触发启动服务后再开始</span></span><br><span class="line">full_ffmpeg_log: false              <span class="comment"># 是否允许抑制由libavcodec生成的警告消息，清除日志</span></span><br><span class="line">camera_name: head_camera            <span class="comment"># 相机的ROS内部名称，用于生成camera_info消息</span></span><br><span class="line">camera_frame_id: usb_cam            <span class="comment"># 用于生成坐标转换的帧ID</span></span><br><span class="line">camera_transport_suffix: image_raw   <span class="comment"># image_transport用于生成话题名称的后缀</span></span><br><span class="line">camera_info_url: <span class="string">&quot;&quot;</span>                 <span class="comment"># 相机校准数据的URI（可能是从相机校准中获取的YML文件）</span></span><br><span class="line">image_width: <span class="number">800</span>                    <span class="comment"># 帧的宽度，应受到相机硬件支持</span></span><br><span class="line">image_height:</span><br><span class="line">[Something went wrong, please <span class="keyword">try</span> again later.]</span><br></pre></td></tr></table></figure>
+
+<p>此时在终端订阅话题<camera_name>&#x2F;image_raw 即可获得图像并进一步处理。 我们调用 rostopic 显示图像信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic echo &lt;camera_name&gt;/raw</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><h3 id="锥桶检测"><a href="#锥桶检测" class="headerlink" title="锥桶检测"></a>锥桶检测</h3></li>
+</ol>
+<p>上文我们在ROS中获取到的图像为sensor_msgs&#x2F;Image格式，我们希望使用OpenCV处理图像，ROS中提供了CvBridge库，用于连接ROS格式数据与OpenCV格式数据：</p>
+<img src="image-20231010225010118.png" alt="image-20231010225010118" style="zoom:50%;" />
+
+<p>首先定义一个类，用于订阅ROS中摄像头传递回来的图像，self.bridge为CvBridge()的成员变量，用于将ROS格式信息转换为OpenCV格式信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">image_converter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, fps</span>):    </span><br><span class="line">        <span class="comment"># 创建cv_bridge，声明图像的发布者和订阅者</span></span><br><span class="line">        rospy.on_shutdown(self.cleanup)</span><br><span class="line">        self.bridge = CvBridge()</span><br><span class="line">        self.image_sub = rospy.Subscriber(<span class="string">&quot;/usb_cam/image_raw&quot;</span>, Image, self.callback, queue_size=<span class="number">1</span>)</span><br><span class="line">        self.fps = fps</span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line">        self.location = coneLocation()</span><br></pre></td></tr></table></figure>
+
+<img src="3_1.jpg" alt="3_1" style="zoom:50%;" />
+
+<img src="3_2.jpg" alt="3_2" style="zoom:50%;" />
+
+<img src="3_3.jpg" alt="3_3" style="zoom:50%;" />
+
+<center>三种情况的原始图片</center>
+
+<p>定义callback函数作为回调函数，首先使用self.bridge.imgmsg_to_cv2(data, “bgr8”)转换图像格式为BGR8比特图像，每FPS取出一次图像，传入self.detectLocation函数用于检测锥桶：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">callback</span>(<span class="params">self, data</span>):</span><br><span class="line">    <span class="comment"># 使用cv_bridge将ROS的图像数据转换成OpenCV的图像格式</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        cv_image = self.bridge.imgmsg_to_cv2(data, <span class="string">&quot;bgr8&quot;</span>)</span><br><span class="line">        <span class="comment"># cv_image=cv_image[250:350, 350:470]</span></span><br><span class="line">        <span class="comment"># cv_image=cv_image[0:800, 100:500]</span></span><br><span class="line">        img = np.array(cv_image, dtype=np.uint8)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">except</span> CvBridgeError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 每fps次出图取一次</span></span><br><span class="line">    <span class="keyword">if</span>(self.count % self.fps == <span class="number">0</span>):</span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line">        self.detectLocation(cv_image)</span><br><span class="line">    <span class="comment"># 计数自增一</span></span><br><span class="line">    self.count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来我们详细介绍self.detectLocation中检测锥桶的代码实现流程：</p>
+<p>定义红色和蓝色锥桶的HSV颜色区间，通过inRange()函数分别将红、蓝锥桶从图像中分割出来并形成二值化图像，注意红色在HSV中有两个区间，使用inRange()二值化之后需要使用cv2.bitwise_or()融合两张图片。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 红色颜色区间</span></span><br><span class="line">lower_orange1 = np.array([<span class="number">0</span>, <span class="number">30</span>, <span class="number">70</span>])</span><br><span class="line">lower_orange2 = np.array([<span class="number">15</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">upper_orange1 = np.array([<span class="number">150</span>, <span class="number">30</span>, <span class="number">70</span>])</span><br><span class="line">upper_orange2 = np.array([<span class="number">180</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line"><span class="comment"># 蓝色颜色区间</span></span><br><span class="line">lower_blue = np.array([<span class="number">90</span>, <span class="number">40</span>, <span class="number">80</span>])</span><br><span class="line">upper_blue = np.array([<span class="number">135</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line"><span class="comment"># 对HSV图像进行阈值处理，只获取亮橙色</span></span><br><span class="line">imgThreshLow = cv2.inRange(hsv_img, lower_orange1, lower_orange2)</span><br><span class="line">imgThreshHigh = cv2.inRange(hsv_img, upper_orange1, upper_orange2)</span><br><span class="line">imgBlue = cv2.inRange(hsv_img, lower_blue, upper_blue)</span><br><span class="line">imgRed = cv2.bitwise_or(imgThreshLow, imgThreshHigh)</span><br></pre></td></tr></table></figure>
+
+<img src="image-20231110110658125.png" alt="image-20231110110658125" style="zoom:33%;" />
+
+<center>红色</center>
+
+<img src="image-20231110110652562.png" alt="image-20231110110622819" style="zoom:33%;" />
+
+<center>二值化后的红色、蓝色锥桶</center>
+
+<p>然后进行形态学图像处理，主要使用腐蚀和膨胀平滑和处理图像，以便更容易检测图像中的锥桶。先通过腐蚀后膨胀消除小的伪影，腐蚀操作会使图像中的白色区域减小，它通过内核在图像上滑动并将内核下的像素值设置为内核中的最小值，膨胀操作会使图像中的白色区域扩大，它通过内核在图像上滑动并将内核下的像素值设置为内核中的最大值。再次进行膨胀操作，此时<code>iterations=11</code>表示膨胀操作将重复执行11次。这一步的目的是填补可能由于反光带而导致的橙色边缘之间的间隙，将交通锥桶还原到标准大小。最后，再次进行腐蚀操作，<code>iterations=7</code>表示腐蚀操作将重复执行7次。这一步的目的是对图像进行最后的平滑处理，以确保交通锥桶的形状较为均匀和规则，以便进行后续的边缘检测。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过先腐蚀然后膨胀来消除小的伪影</span></span><br><span class="line">threshed_img_smooth_red = cv2.erode(imgRed, kernel, iterations=<span class="number">3</span>)</span><br><span class="line">threshed_img_smooth_red = cv2.dilate(threshed_img_smooth_red, kernel, iterations=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 通过先膨胀然后腐蚀来处理带有反光带的锥桶，以消除一个橙色边缘和另一个之间的间隙，并将交通锥桶恢复到标准大小</span></span><br><span class="line">smoothed_img_red = cv2.dilate(threshed_img_smooth_red, kernel, iterations=<span class="number">11</span>)</span><br><span class="line">smoothed_img_red = cv2.erode(smoothed_img_red, kernel, iterations=<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">threshed_img_smooth_blue = cv2.erode(imgBlue, kernel, iterations=<span class="number">3</span>)</span><br><span class="line">threshed_img_smooth_blue = cv2.dilate(threshed_img_smooth_blue, kernel, iterations=<span class="number">2</span>)</span><br><span class="line">smoothed_img_blue = cv2.dilate(threshed_img_smooth_blue, kernel, iterations=<span class="number">11</span>)</span><br><span class="line">smoothed_img_blue = cv2.erode(smoothed_img_blue, kernel, iterations=<span class="number">7</span>)</span><br></pre></td></tr></table></figure>
+
+<img src="image-20231110111039863.png" alt="image-20231110111039863" style="zoom:33%;" />
+
+<center>腐蚀、膨胀后的红色锥桶</center>
+
+<img src="image-20231110110929359.png" alt="image-20231110110929359" style="zoom:33%;" />
+
+<center>腐蚀、膨胀后的蓝色锥桶</center>
+
+<p>然后使用<code>Canny</code>边缘检测算法来检测图像中的边缘，并使用<code>cv2.findContours</code>查找图像中的轮廓，并获得这些轮廓的信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检测图像中的所有边缘</span></span><br><span class="line">edges_img_red = cv2.Canny(smoothed_img_red, <span class="number">80</span>, <span class="number">160</span>)</span><br><span class="line">edges_img_blue = cv2.Canny(smoothed_img_blue, <span class="number">80</span>, <span class="number">160</span>)</span><br><span class="line">contours_red, hierarchy_red = cv2.findContours(edges_img_red, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">contours_blue, hierarchy_blue = cv2.findContours(edges_img_blue, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br></pre></td></tr></table></figure>
+
+<img src="image-20231110111201545.png" alt="image-20231110111201545" style="zoom:33%;" />
+
+<center>边缘检测的绿色锥桶</center>
+
+<img src="image-20231110111024168.png" alt="image-20231110111024168" style="zoom:33%;" />
+
+<center>边缘检测的红色锥桶</center>
+
+<img src="image-20231110110823080.png" alt="image-20231110110823080" style="zoom:33%;" />
+
+<center>边缘检测的红色、绿色锥桶</center>
+
+<p>最后，使用道格拉斯-佩克算法平滑曲线，对锥桶轮廓点进行多边形拟合，判断轮廓如果是三角形，就在周围绘制一个边界框，标明识别到锥桶：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> cnt <span class="keyword">in</span> contours_red:</span><br><span class="line">    boundingRect = cv2.boundingRect(cnt)</span><br><span class="line">    approx = cv2.approxPolyDP(cnt, <span class="number">0.06</span> * cv2.arcLength(cnt, <span class="literal">True</span>), <span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 如果轮廓是三角形，就在其周围绘制一个边界框，并给它贴上交通锥桶的标签</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(approx) == <span class="number">3</span>:</span><br><span class="line">        x, y, w, h = cv2.boundingRect(approx)</span><br><span class="line">        rect = (x, y, w, h)</span><br><span class="line">        cv2.rectangle(image, (x, y), (x + w, y + h), (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">3</span>)</span><br><span class="line">        bottomLeftCornerOfText = (x, y)</span><br><span class="line">        cv2.putText(image, <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">                    bottomLeftCornerOfText,</span><br><span class="line">                    font,</span><br><span class="line">                    fontScale,</span><br><span class="line">                    fontColor,</span><br><span class="line">                    lineType)</span><br></pre></td></tr></table></figure>
+
+<img src="image-20231110111115872.png" alt="image-20231110111115872" style="zoom: 33%;" />
+
+<img src="image-20231110110906534.png" alt="image-20231110110906534" style="zoom:33%;" />
+
+<img src="image-20231110110833969.png" alt="image-20231110110833969" style="zoom:33%;" />
+
+<center>识别到的锥桶</center>
+
+<ol start="3">
+<li><h3 id="红灯检测"><a href="#红灯检测" class="headerlink" title="红灯检测"></a>红灯检测</h3></li>
+</ol>
+<p>检测红绿灯的代码框架与上文检测锥桶类似，主要区别为两者的<code>callback()</code>函数，接下来我们详细介绍<code>self.RedAndGreen()</code>函数，以下是总体设计的流程图：</p>
+<img src="红灯.bmp" alt="红灯" style="zoom: 25%;" />
+
+<center>红灯检测流程图</center>
+
+<p>首先我们先指定红绿灯设备中红色的HSV颜色阈值上下界，通过<code>cv2.cvtColor</code>函数将图片从BGR空间转换至HSV空间，然后通过<code>cv2.inRange()</code>函数过滤出红色部分的二值化函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定红色值的范围</span></span><br><span class="line">minRed = np.array([<span class="number">0</span>, <span class="number">127</span>, <span class="number">128</span>])  <span class="comment"># 红色阈值下界</span></span><br><span class="line">maxRed = np.array([<span class="number">10</span>, <span class="number">255</span>, <span class="number">255</span>])  <span class="comment"># 红色阈值上界</span></span><br><span class="line"><span class="comment"># BGR -&gt; HSV颜色空间</span></span><br><span class="line">img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</span><br><span class="line"><span class="comment"># 确定目标区域</span></span><br><span class="line">mask_red = cv2.inRange(img_hsv, minRed, maxRed)  <span class="comment"># 过滤出红色部分，获得红色的掩膜</span></span><br></pre></td></tr></table></figure>
+
+<p>我们无法直接对二值化后的图片进行圆形检测，主要原因有两个：</p>
+<ul>
+<li>由于红绿灯上檐会产生反光，我们需要尽可能消除这部分，否则会对圆形检测产生许多干扰</li>
+<li>红绿灯圆形范围边界模糊、残缺，我们需要尽可能填满这部分，让其形成一个便于检测的圆形</li>
+</ul>
+<img src="image-20231110001748567.png" alt="image-20231110001748567" style="zoom: 50%;" />
+
+<img src="image-20231110001634488.png" alt="image-20231110001634488" style="zoom:80%;" />
+
+<p>因此我们对二值化后的图像先膨胀，再腐蚀，然后再膨胀：</p>
+<ul>
+<li>先膨胀：补充完整红绿灯圆形边界</li>
+<li>再腐蚀：去除上檐的反光部分</li>
+<li>最后膨胀：对红绿灯边界进行平滑处理，以确保红绿灯边界的形状较为均匀和规则</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 膨胀</span></span><br><span class="line">threshed_img_smooth_red = cv2.dilate(mask_red, kernel, iterations=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 腐蚀</span></span><br><span class="line">threshed_img_smooth_red = cv2.erode(threshed_img_smooth_red, kernel, iterations=<span class="number">6</span>)</span><br><span class="line"><span class="comment"># 膨胀</span></span><br><span class="line">threshed_img_smooth_red = cv2.dilate(threshed_img_smooth_red, kernel, iterations=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>实现的效果图分别如下，可见可以得到一个比较好的圆形，因此后续的圆形检测能够实现比较好的效果：</p>
+<img src="image-20231110002608793.png" alt="image-20231110002608793" style="zoom:80%;" />
+
+<center>初次膨胀</center>
+
+<img src="image-20231110002624993.png" alt="image-20231110002624993" style="zoom:80%;" />
+
+<center>再腐蚀</center>
+
+<img src="image-20231110002657872.png" alt="image-20231110002657872" style="zoom:80%;" />
+
+<center>最后膨胀</center>
+
+<p>然后我们对处理完毕之后的图片使用<code>cv2.HoughCircles()</code>函数进行圆形检测，设定圆心距20，canny阈值50，投票数20，最小半径1，最大半径400</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 使用HoughCircles函数检测圆形</span><br><span class="line">circles = cv2.HoughCircles(threshed_img_smooth_red, cv2.HOUGH_GRADIENT, 1, 20, param1=50, param2=20, minRadius=1, maxRadius=400)</span><br></pre></td></tr></table></figure>
+
+<p>由于可能会检测到多个圆形，我们检测到圆形后只画出最大的圆：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> circles <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    circles = np.uint16(np.around(circles))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 寻找半径最大的圆</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(circles[<span class="number">0</span>])):</span><br><span class="line">        <span class="keyword">if</span> circles[<span class="number">0</span>, i][<span class="number">2</span>] &gt; max_radius:</span><br><span class="line">            max_radius = circles[<span class="number">0</span>, i][<span class="number">2</span>]</span><br><span class="line">            max_circle_index = i</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制半径最大的圆</span></span><br><span class="line">    <span class="keyword">if</span> max_circle_index != -<span class="number">1</span>:</span><br><span class="line">        center = (circles[<span class="number">0</span>, max_circle_index][<span class="number">0</span>], circles[<span class="number">0</span>, max_circle_index][<span class="number">1</span>])</span><br><span class="line">        radius = circles[<span class="number">0</span>, max_circle_index][<span class="number">2</span>]</span><br><span class="line">        cv2.circle(img, center, radius, (<span class="number">255</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">3</span>)</span><br><span class="line">        cv2.putText(img, <span class="string">&#x27;Largest Circle&#x27;</span>, (center[<span class="number">0</span>] - <span class="number">20</span>, center[<span class="number">1</span>] - <span class="number">20</span>), cv2.FONT_HERSHEY_SIMPLEX, <span class="number">0.6</span>,</span><br><span class="line">                    (<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在检测到圆形的基础上，检测红色二值化后的圆形边界，如果检测到圆形边界的$宽\times 高&gt;150\times 150$，则判断检测到了红灯并且框选出红灯。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 查找轮廓</span><br><span class="line">edges_img_red = cv2.Canny(threshed_img_smooth_red, 80, 160)</span><br><span class="line">contours1, hierarchy1 = cv2.findContours(edges_img_red, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)  # 轮廓检测 红灯</span><br><span class="line">contour_image = img.copy()</span><br><span class="line">cv2.drawContours(contour_image, contours1, -1, (0, 255, 0), 2)  # 绘制所有轮廓，颜色为绿色，线宽为2</span><br><span class="line"># 检测红灯</span><br><span class="line">for cnt in contours1:</span><br><span class="line">    (x, y, w, h) = cv2.boundingRect(cnt)</span><br><span class="line">    if w*h &lt; 150*150:</span><br><span class="line">        continue</span><br><span class="line">    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)</span><br><span class="line">    cv2.putText(img, &#x27;red_light&#x27;, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)</span><br></pre></td></tr></table></figure>
+
+<img src="image-20231110094557775.png" alt="image-20231110094557775" style="zoom:50%;" />
+
+<center>绿色边界为Canny边缘检测</center>
+
+<img src="image-20231110094629516.png" alt="image-20231110094629516" style="zoom:50%;" />
+
+<center>紫色为识别到的最大圆，红框圈出识别到的红灯</center>
+
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><ol>
+<li><a target="_blank" rel="noopener" href="http://wiki.ros.org/usb_cam">wiki.ros.org&#x2F;usb_cam</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lemonxiaoxiao/article/details/107719348">ROS下采用camera_calibration进行单目相机标定_rosrun camera_calibration cameracalibrator.py</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.ros.org/cv_bridge/Tutorials">cv_bridge&#x2F;Tutorials - ROS Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.ros.org/camera_calibration">camera_calibration - ROS Wiki</a></li>
+</ol>
+<h2 id="实验总结："><a href="#实验总结：" class="headerlink" title="实验总结："></a>实验总结：</h2><p>本次实验旨在通过相机标定和图像处理技术，实现对锥桶和红绿灯信息的准确提取。采用了相机标定源码和OpenCV等工具库，我们成功地完成了这一目标，取得了一系列令人满意的成果。</p>
+<p>首先，相机标定是我们实验的重要一环。通过使用先进的相机标定源码，我们准确地调整了相机的内外参数，确保了图像的准确性和可靠性。这个步骤为后续的图像处理提供了可靠的基础，使得我们的算法能够更好地映射到实际场景。在锥桶信息的处理过程中，我们应用了中值滤波和形态学滤波。中值滤波的使用帮助我们有效地去除了图像中的噪声，提高了图像质量。形态学滤波则在处理锥桶的形态和数量时发挥了关键作用，使得我们能够精准地识别和定位锥桶。红绿灯信息的提取则涉及到边缘检测算法的应用。通过合理选择算法参数，我们成功地捕捉到交通信号的位置，确保了对交通灯状态的准确判断。这一步骤对于交通场景的智能识别具有重要的实际意义。</p>
+<p>整个实验过程中，我们团队注重技术细节的处理，追求精益求精。通过灵活运用图像处理算法，我们建立了高效、稳健的处理流程。对工具库的熟练应用使我们能够在实际场景中更加灵活地解决问题。在未来的工作中，我们将继续优化算法，提高处理的速度和准确度。同时，我们也将探索更多的图像处理技术，以适应不同场景和环境的需求。</p>
+<p>总体来说，这次实验为智能车的运行提供了有效的数据决策，也为我们在今后的学习生涯里学习图像处理技术奠定了坚实的基础。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bsgbsg7</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/11/19/%E5%AE%9E%E9%AA%8C%E4%B8%80%20%E8%A7%86%E8%A7%89%E6%84%9F%E7%9F%A5%EF%BC%9A%E7%BA%A2%E7%BB%BF%E7%81%AF%E4%B8%8E%E9%94%A5%E6%A1%B6%E6%A3%80%E6%B5%8B/">http://example.com/2023/11/19/%E5%AE%9E%E9%AA%8C%E4%B8%80%20%E8%A7%86%E8%A7%89%E6%84%9F%E7%9F%A5%EF%BC%9A%E7%BA%A2%E7%BB%BF%E7%81%AF%E4%B8%8E%E9%94%A5%E6%A1%B6%E6%A3%80%E6%B5%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bsgbsg7's World</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/pay.png" target="_blank"><img class="post-qr-code-img" src="/img/pay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Bsgbsg7</div><div class="author-info__description">找到那个重要的人了吗？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/bsgbsg7"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/bsgbsg7" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:Bsgbsg7@Outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="tencent://message/?uin=2028163967" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"></div><div id="welcome-info"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80%E8%A7%86%E8%A7%89%E6%84%9F%E7%9F%A5%EF%BC%9A%E7%BA%A2%E7%BB%BF%E7%81%AF%E4%B8%8E%E9%94%A5%E6%A1%B6%E6%A3%80%E6%B5%8B"><span class="toc-number">1.</span> <span class="toc-text">实验一	视觉感知：红绿灯与锥桶检测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">实验目的:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">实验内容：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%AA%E5%99%A8%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">实验仪器：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">实验原理：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ROS%E7%8E%AF%E5%A2%83%E4%B8%8B%E9%A9%B1%E5%8A%A8USB%E7%9B%B8%E6%9C%BA"><span class="toc-number">1.4.1.</span> <span class="toc-text">ROS环境下驱动USB相机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.4.2.</span> <span class="toc-text">图像处理算法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF"><span class="toc-number">1.4.3.</span> <span class="toc-text">图像处理技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">图像去噪</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%A2%E6%80%81%E5%AD%A6%E6%BB%A4%E6%B3%A2"><span class="toc-number">1.4.3.2.</span> <span class="toc-text">形态学滤波</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B"><span class="toc-number">1.4.3.3.</span> <span class="toc-text">边缘检测</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="toc-number">1.5.</span> <span class="toc-text">实验步骤：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8USB%E7%9B%B8%E6%9C%BA"><span class="toc-number">1.5.1.</span> <span class="toc-text">驱动USB相机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%A5%E6%A1%B6%E6%A3%80%E6%B5%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text">锥桶检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A2%E7%81%AF%E6%A3%80%E6%B5%8B"><span class="toc-number">1.5.3.</span> <span class="toc-text">红灯检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-number">1.6.</span> <span class="toc-text">参考资料：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">1.7.</span> <span class="toc-text">实验总结：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/19/%E5%AE%9E%E9%AA%8C%E4%B8%80%20%E8%A7%86%E8%A7%89%E6%84%9F%E7%9F%A5%EF%BC%9A%E7%BA%A2%E7%BB%BF%E7%81%AF%E4%B8%8E%E9%94%A5%E6%A1%B6%E6%A3%80%E6%B5%8B/" title="ROS智能车（一）：视觉感知">ROS智能车（一）：视觉感知</a><time datetime="2023-11-19T09:57:11.483Z" title="发表于 2023-11-19 17:57:11">2023-11-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/30/cx-lvgl-8/" title="ESP32 LVGL（8）">ESP32 LVGL（8）</a><time datetime="2023-06-29T17:09:55.020Z" title="发表于 2023-06-30 01:09:55">2023-06-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/28/cx-lvgl-7/" title="ESP32 LVGL（7）">ESP32 LVGL（7）</a><time datetime="2023-06-28T12:51:21.217Z" title="发表于 2023-06-28 20:51:21">2023-06-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/05/ros/" title="ROS">ROS</a><time datetime="2023-06-05T06:37:45.907Z" title="发表于 2023-06-05 14:37:45">2023-06-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/04/cx-lvgl-6/" title="ESP32 LVGL（6）">ESP32 LVGL（6）</a><time datetime="2023-06-04T15:39:18.292Z" title="发表于 2023-06-04 23:39:18">2023-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By Bsgbsg7</div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://bsgbsg7.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.szbsgbsg7.top/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.szbsgbsg7.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo.szbsgbsg7.top/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (false) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script defer src="/live2d-widget-master/autoload.js"></script><div class="aplayer no-destroy" data-id="1809713120" data-server="netease" lrc-type="0" preload="auto" mutex="true" data-type="song" data-fixed="true" data-autoplay="false"> </div><script async src="/js/title.js"></script><script async src="/js/bibi.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="/js/cat.js"></script><script defer data-pjax src="/js/emoji.js"></script><script src="/js/sun_moon.js" async></script><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async data-pjax src="/js/txmap.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
