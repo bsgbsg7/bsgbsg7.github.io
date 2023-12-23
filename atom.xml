@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-19T09:41:00.890Z</updated>
+  <updated>2023-12-23T04:29:24.656Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2023/12/23/ubuntu/"/>
+    <id>http://example.com/2023/12/23/ubuntu/</id>
+    <published>2023-12-23T04:29:24.655Z</published>
+    <updated>2023-12-23T04:29:24.656Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="VMware虚拟机下安装Ubuntu20-04"><a href="#VMware虚拟机下安装Ubuntu20-04" class="headerlink" title="VMware虚拟机下安装Ubuntu20.04"></a>VMware虚拟机下安装Ubuntu20.04</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;VMware虚拟机下安装Ubuntu20-04&quot;&gt;&lt;a href=&quot;#VMware虚拟机下安装Ubuntu20-04&quot; class=&quot;headerlink&quot; title=&quot;VMware虚拟机下安装Ubuntu20.04&quot;&gt;&lt;/a&gt;VMware虚拟机下安装Ubunt</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>ROS智能车（一）：视觉感知</title>
