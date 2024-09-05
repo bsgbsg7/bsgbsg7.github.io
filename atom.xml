@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-23T04:29:24.656Z</updated>
+  <updated>2023-12-23T04:44:12.215Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="http://example.com/2023/12/23/ubuntu/"/>
     <id>http://example.com/2023/12/23/ubuntu/</id>
     <published>2023-12-23T04:29:24.655Z</published>
-    <updated>2023-12-23T04:29:24.656Z</updated>
+    <updated>2023-12-23T04:44:12.215Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="VMware虚拟机下安装Ubuntu20-04"><a href="#VMware虚拟机下安装Ubuntu20-04" class="headerlink" title="VMware虚拟机下安装Ubuntu20.04"></a>VMware虚拟机下安装Ubuntu20.04</h2>]]></content>
+    <content type="html"><![CDATA[<h2 id="VirtualBox虚拟机下安装Ubuntu20-04"><a href="#VirtualBox虚拟机下安装Ubuntu20-04" class="headerlink" title="VirtualBox虚拟机下安装Ubuntu20.04"></a>VirtualBox虚拟机下安装Ubuntu20.04</h2><h3 id="1-Ubuntu镜像下载"><a href="#1-Ubuntu镜像下载" class="headerlink" title="1.Ubuntu镜像下载"></a>1.Ubuntu镜像下载</h3><p>链接：<a href="https://pan.baidu.com/s/1yYZN5iC83fitcEA1M0M5Jw">https://pan.baidu.com/s/1yYZN5iC83fitcEA1M0M5Jw</a><br>提取码：kiyv</p><h3 id="2-安装VMware"><a href="#2-安装VMware" class="headerlink" title="2.安装VMware"></a>2.安装VMware</h3><p><a href="https://www.virtualbox.org/wiki/Downloads">Downloads – Oracle VM VirtualBox</a></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;VMware虚拟机下安装Ubuntu20-04&quot;&gt;&lt;a href=&quot;#VMware虚拟机下安装Ubuntu20-04&quot; class=&quot;headerlink&quot; title=&quot;VMware虚拟机下安装Ubuntu20.04&quot;&gt;&lt;/a&gt;VMware虚拟机下安装Ubunt</summary>
+    <summary type="html">&lt;h2 id=&quot;VirtualBox虚拟机下安装Ubuntu20-04&quot;&gt;&lt;a href=&quot;#VirtualBox虚拟机下安装Ubuntu20-04&quot; class=&quot;headerlink&quot; title=&quot;VirtualBox虚拟机下安装Ubuntu20.04&quot;&gt;&lt;/a&gt;Virtu</summary>
       
     
     
